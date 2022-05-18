@@ -1,19 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1280.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.national_gallery_ca.DefaultViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="814.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.national_gallery_ca.DefaultViewController">
    <children>
-      <ToolBar prefHeight="40.0" prefWidth="1280.0" style="-fx-background-color: grey;">
-        <items>
-          <Button fx:id="exitButton" mnemonicParsing="false" onAction="#buttonExit" prefHeight="25.0" prefWidth="60.0" text="Exit" />
-        </items>
-      </ToolBar>
-      <Rectangle fx:id="ivBackground" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="550.0" layoutX="195.0" layoutY="235.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="550.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="60.0" />
-      <ImageView fx:id="displayNGMap" fitHeight="550.0" fitWidth="550.0" layoutX="14.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true"  AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="60.0" />
+      <Rectangle fx:id="ivBackground" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="554.0" layoutX="195.0" layoutY="235.0" stroke="#575757" strokeType="INSIDE" strokeWidth="2.0" width="554.0" AnchorPane.leftAnchor="19.0" AnchorPane.topAnchor="19.0" />
+      <ImageView fx:id="displayNGMap" fitHeight="550.0" fitWidth="550.0" layoutX="14.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <Label layoutX="20.0" layoutY="584.0" text="Room Selection" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="584.0">
+         <font>
+            <Font name="Calibri" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="20.0" layoutY="621.0" prefHeight="30.0" prefWidth="159.0" text="Starting Room">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="20.0" layoutY="664.0" text="Destination Room" AnchorPane.topAnchor="664.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <ComboBox layoutX="199.0" layoutY="624.0" prefWidth="150.0" promptText="Start" />
+      <ComboBox layoutX="199.0" layoutY="667.0" prefWidth="150.0" promptText="Destination" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="2.0" layoutX="19.0" layoutY="694.0" stroke="#575757" strokeType="INSIDE" width="427.0" AnchorPane.topAnchor="704.0" />
+      <Label layoutX="634.0" layoutY="20.0" text="Algorithms" AnchorPane.leftAnchor="634.0">
+         <font>
+            <Font name="Calibri" size="25.0" />
+         </font>
+      </Label>
+      <ToggleButton layoutX="595.0" layoutY="545.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Dijkstra's" AnchorPane.topAnchor="545.0" />
+      <ToggleButton layoutX="594.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Depth-First" AnchorPane.topAnchor="60.0" />
+      <ToggleButton layoutX="594.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Breadth-First" AnchorPane.leftAnchor="594.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="361.0" />
+      <Label layoutX="20.0" layoutY="724.0" text="Avoid Rooms" AnchorPane.topAnchor="724.0">
+         <font>
+            <Font name="Calibri" size="25.0" />
+         </font>
+      </Label>
+      <ComboBox layoutX="19.0" layoutY="754.0" prefWidth="150.0" promptText="Avoid" AnchorPane.topAnchor="764.0" />
+      <ListView layoutX="179.0" layoutY="754.0" prefHeight="213.0" prefWidth="270.0" style="-fx-border-color: #575757; -fx-border-width: 2;" AnchorPane.bottomAnchor="20.0" AnchorPane.topAnchor="724.0" />
+      <Button layoutX="19.0" layoutY="807.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Add avoided room" AnchorPane.topAnchor="804.0" />
+      <Button layoutX="19.0" layoutY="846.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Remove avoided room" AnchorPane.topAnchor="844.0" />
+      <Button layoutX="696.0" layoutY="921.0" mnemonicParsing="false" text="Clear mappings" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+      <ListView layoutX="594.0" layoutY="95.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #575757; -fx-border-width: 2;" AnchorPane.topAnchor="95.0" />
+      <Button layoutX="594.0" layoutY="403.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Start" />
+      <Button layoutX="698.0" layoutY="403.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Destination" />
+      <Button layoutX="657.0" layoutY="442.0" mnemonicParsing="false" text="Calculate" />
    </children>
 </AnchorPane>
