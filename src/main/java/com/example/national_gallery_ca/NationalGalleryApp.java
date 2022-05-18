@@ -11,7 +11,7 @@ public class NationalGalleryApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(NationalGalleryApp.class.getResource("DefaultView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1280, 960);
+        Scene scene = new Scene(fxmlLoader.load(), 814, 960);
         stage.setTitle("National Gallery Route Finder");
         stage.setScene(scene);
         stage.show();
