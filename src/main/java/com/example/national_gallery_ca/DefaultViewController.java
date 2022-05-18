@@ -9,6 +9,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.shape.Rectangle;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class DefaultViewController {
     static Image NGMap;
     @FXML
@@ -37,4 +42,18 @@ public class DefaultViewController {
         });
     }
 
+    private void readInDatabase() {
+        String line = "";
+        try {
+            File file = new File("rooms.csv");
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            while ((line = bufferedReader.readLine()) != null){
+                String[] vals = line.split(",");
+                
+                Room room = new Room(vals[0],Integer.parseInt(vals[1]),Integer.parseInt(vals[2]));
+            }
+        } catch (IOException ioException){
+            ioException.printStackTrace();
+        }
+    }
 }
