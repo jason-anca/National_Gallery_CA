@@ -13,12 +13,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class DefaultViewController {
     static Image NGMap;
+    private HashMap<String, GraphNodeAL2<Room>> roomMap;
     @FXML
     private Button exitButton;
     @FXML
@@ -31,6 +30,10 @@ public class DefaultViewController {
     displayNGMap.setImage(NGMap);
     ivBackground.setVisible(true);
     mouseListener();
+    this.roomNodes = new ArrayList<>();
+    this.roomMap = new HashMap<>();
+    readInDatabase();
+    readInConnections();
     }
 
     @FXML
@@ -43,16 +46,45 @@ public class DefaultViewController {
             System.out.println("["+(int)e.getX()+", "+(int)e.getY()+"]");
         });
     }
+    //Makes a list of grpah nodes of type room
+    private List<GraphNodeAL2<Room>> roomNodes;
 
+    //Reads in rooms csv file and creates room nodes with names and coords
+    //Adds room names into hash map
     private void readInDatabase() {
         String line = "";
         try {
-            File file = new File("rooms.csv");
+            File file = new File("src/main/resources/rooms.csv");
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
             while ((line = bufferedReader.readLine()) != null){
                 String[] vals = line.split(",");
-
                 Room room = new Room(vals[0],Integer.parseInt(vals[1]),Integer.parseInt(vals[2]));
+                GraphNodeAL2<Room> node = new GraphNodeAL2<>(room);
+                roomNodes.add(node);
+                roomMap.put(vals[0], node);
+                System.out.println(vals[0] + " [" + vals[1] + "] [" + vals[2] + "]");
+            }
+        } catch (IOException ioException){
+            ioException.printStackTrace();
+        }
+    }
+
+    public void connectNodes(String node1, String node2) {
+        GraphNodeAL2<Room> roomA = roomMap.get(node1);
+        GraphNodeAL2<Room> roomB = roomMap.get(node2);
+        roomA.connectToNodeUndirected(roomB, 1);
+    }
+
+    private void readInConnections() {
+        String line = "";
+        try {
+            File file = new File("src/main/resources/room connections 1.csv");
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            while ((line = bufferedReader.readLine()) != null){
+                String[] vals = line.split(",");
+                connectNodes(vals[0],vals[1]);
+
+                System.out.println(vals[0] + " " + vals[1]);
             }
         } catch (IOException ioException){
             ioException.printStackTrace();
