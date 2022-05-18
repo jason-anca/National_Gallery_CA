@@ -46,7 +46,7 @@ public class DefaultViewController {
             System.out.println("["+(int)e.getX()+", "+(int)e.getY()+"]");
         });
     }
-    //Makes a list of grpah nodes of type room
+    //Makes a list of graph nodes of type room
     private List<GraphNodeAL2<Room>> roomNodes;
 
     //Reads in rooms csv file and creates room nodes with names and coords
