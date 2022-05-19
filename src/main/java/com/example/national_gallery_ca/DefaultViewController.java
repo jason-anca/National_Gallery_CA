@@ -99,7 +99,6 @@ public class DefaultViewController {
         try {
             GraphNodeAL<Room> roomA = roomMap.get(node1);
             GraphNodeAL<Room> roomB = roomMap.get(node2);
-///
             roomA.connectToNodeUndirected(roomB, 1);
         }catch (Exception e){
             System.err.println(node1);
