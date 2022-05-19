@@ -54,7 +54,7 @@
       <Button layoutX="698.0" layoutY="403.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Destination" />
       <Button layoutX="657.0" layoutY="442.0" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Calculate" />
       <AnchorPane fx:id="aPane" disable="true" layoutX="21.0" layoutY="21.0" prefHeight="550.0" prefWidth="550.0" />
-      <ListView layoutX="534.0" layoutY="654.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #575757; -fx-border-width: 2;" />
+      <ListView fx:id="avoidedRooms" layoutX="534.0" layoutY="654.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #575757; -fx-border-width: 2;" />
       <Label layoutX="606.0" layoutY="614.0" text="Paths">
          <font>
             <Font name="Calibri" size="25.0" />

@@ -45,16 +45,17 @@ public class DefaultViewController {
         this.roomNames = new LinkedList<>();
 
 
+        //sets the image of the gallery in the imageview
         NGMap = new Image("ngmap.png", displayNGMap.getFitWidth(), displayNGMap.getFitHeight(), true, true);
         displayNGMap.setImage(NGMap);
         ivBackground.setVisible(true);
 
-        //database code
+        //database code and csv
         mouseListener();
         readInDatabase();
         readInConnections();
 
-        //combobox
+        //combobox code
         start.getItems().addAll(roomNames);
         finish.getItems().addAll(roomNames);
         avoid.getItems().addAll(roomNames);
@@ -63,8 +64,7 @@ public class DefaultViewController {
         avoidRooms = new ArrayList<>();
     }
 
-    //Used for finding the x and y coords for each room
-
+    //Used for finding the x and y coords for each room, no longer needed
     private void mouseListener() {
         displayNGMap.setOnMouseClicked(e -> {
             System.out.println("[" + (int) e.getX() + ", " + (int) e.getY() + "]");
@@ -100,6 +100,8 @@ public class DefaultViewController {
 
 
     //Connects a node to another node and assigning a cost of 1
+    //Using try catch since we were running into an error where the first room in the list was always null?
+    //Using undirected connection method
     public void connectNodes(String node1, String node2) {
         //System.out.println(node1 + ", "+ node2);
         try {
@@ -155,12 +157,14 @@ public class DefaultViewController {
     }
 
     @FXML
+    //removes any children(lines) from the invisible anchor-pane that's on the imageview
     public void clearMappings(ActionEvent actionEvent) {
         aPane.getChildren().clear();
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //ALGORITHMS and action events//
 
+    //Dijkstra's algorithm, refactored to allow avoided room functionality
     public static <T> CostedPath findCheapestPathDijkstra(GraphNodeAL<Room> startNode, T lookingfor, ArrayList<String> avoidedRooms) {
         CostedPath cp = new CostedPath(); //Create result object for cheapest path
         List<GraphNodeAL<Room>> encountered = new ArrayList<>(), unencountered = new ArrayList<>(); //Create encountered/unencountered lists
@@ -170,6 +174,8 @@ public class DefaultViewController {
         do { //Loop until unencountered list is empty
             currentNode = unencountered.remove(0); //Get the first unencountered node (sorted list, so will have lowest value)
             encountered.add(currentNode); //Record current node in encountered list
+
+            //If statement added to allow the addition of avoided rooms
             if (!avoidedRooms.contains(currentNode.data.roomName)) {
                 if (currentNode.data.equals(lookingfor)) { //Found goal - assemble path list back to start and return it
                     cp.pathList.add(currentNode); //Add the current (goal) node to the result list (only element)
@@ -213,6 +219,8 @@ public class DefaultViewController {
         return roomMap.get(roomName);
     }
 
+    //Allows the running of the algorithm using the rooms selected in the Comboboxes and the avoided rooms that is stored in an Arraylist.
+    //Lines are drawn between nodes
     public void dijkstras(ActionEvent actionEvent) {
         List<GraphNodeAL<?>> pathList = new LinkedList<>();
         CostedPath cp = findCheapestPathDijkstra(getNode(start.getValue()), getNode(finish.getValue()).data, avoidRooms);
@@ -239,35 +247,41 @@ public class DefaultViewController {
         return findPathBreadthFirst(agenda, encountered, lookingfor); //Tail call
     }
 
-//    public void BFS(ActionEvent actionEvent){
+    public void BFS(ActionEvent actionEvent){
 //        List<GraphNodeAL<?>> pathList = new LinkedList<>();
 //        CostedPath cp = findPathBreadthFirst(getNode(start.getValue(), getNode(finish.getValue()).data));
 //        pathList = cp.pathList;
 //        drawLine(pathList, color);
-//    }
+    }
 
     @FXML
+    //Allows the running of the algorithm using the rooms selected in the Comboboxes and the avoided rooms that is stored in an Arraylist.
+    //Very similar to Dijkstra's Action event, only change is that encountered param is null and cost is 0
     public void DFS(ActionEvent actionEvent) {
         List<GraphNodeAL<?>> pathList = new LinkedList<>();
-        System.out.println(avoidRooms.isEmpty());
         CostedPath cp = searchGraphDepthFirstCheapestPath(getNode(start.getValue()), null, 0, getNode(finish.getValue()).data, avoidRooms, roomMap);
         pathList = cp.pathList;
         drawLine(pathList, color);
     }
 
     @FXML
+    //Adds the room to the listview from avoid Combobox
+    //Adds avoided room to the arraylist of avoided rooms
     public void addAvoid(ActionEvent actionEvent) {
         avoidedRooms.getItems().add(avoid.getValue());
         avoidRooms.add(avoid.getValue());
     }
 
     @FXML
+    //removes items from the list view by getting the selected item from the listview
+    //Removes avoided room from the arraylist of avoided rooms using the selected item in Combobox
     public void removeAvoid(ActionEvent actionEvent) {
         avoidedRooms.getItems().remove(avoidedRooms.getSelectionModel().getSelectedItem());
         avoidRooms.remove(avoid.getValue());
     }
 
-    //Retrieve cheapest path by expanding all paths recursively depth-first
+    //Retrieve the cheapest path by expanding all paths recursively depth-first
+    //Added params for avoided rooms and hashmap to allow the ability to avoid rooms with the algorithm
     public static <T> CostedPath searchGraphDepthFirstCheapestPath(GraphNodeAL<?> from, List<GraphNodeAL<?>> encountered, int totalCost, T lookingfor, ArrayList<String> avoidedRooms, HashMap<String, GraphNodeAL<Room>> roomMap) {
         if (from.data.equals(lookingfor)) { //Found it - end of path
             CostedPath cp = new CostedPath(); //Create a new CostedPath object
@@ -275,6 +289,7 @@ public class DefaultViewController {
             cp.pathCost = totalCost; //Use the current total cost
             return cp; //Return the CostedPath object
         }
+        //For each loop check to see if the current node is an avoided room, if so then breaks recursion, goes to next adjacent node
         for (String n : avoidedRooms) {
             if (from.data == roomMap.get(n).data) {
                 return null;
@@ -286,17 +301,18 @@ public class DefaultViewController {
         for (GraphLinkAL adjLink : from.adjList) //For every adjacent node
             if (!encountered.contains(adjLink.destNode)) //That has not yet been encountered
             {
-//Create a new CostedPath from this node to the searched for item (if a valid path exists)
+                //Create a new CostedPath from this node to the searched for item (if a valid path exists)
                 CostedPath temp = searchGraphDepthFirstCheapestPath(adjLink.destNode, new ArrayList<>(encountered), totalCost + adjLink.cost, lookingfor, avoidedRooms, roomMap);
 
                 if (temp == null) continue; //No path was found, so continue to the next iteration
                 temp.pathList.add(0, from); //Add the current node to the front of the path list
                 allPaths.add(temp); //Add the new candidate path to the list of all costed paths
             }
-//If no paths were found then return null. Otherwise, return the cheapest path (i.e. the one with min pathCost)
+        //If no paths were found then return null. Otherwise, return the cheapest path (i.e. the one with min pathCost)
         return allPaths.isEmpty() ? null : Collections.min(allPaths, (p1, p2) -> p1.pathCost - p2.pathCost);
     }
 
+    //Doesn't quite work due to stack overflow error
     public static <T> List<List<GraphNodeAL<Room>>> findAllPathsDepthFirst(GraphNodeAL<Room> from, List<GraphNodeAL<Room>> encountered, T lookingfor) {
         List<List<GraphNodeAL<Room>>> result = null, temp2;
 
