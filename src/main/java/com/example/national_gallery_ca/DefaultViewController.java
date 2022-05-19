@@ -239,9 +239,10 @@ public class DefaultViewController {
 
     public void DFS(ActionEvent actionEvent){
         List<GraphNodeAL<?>> pathList = new LinkedList<>();
-        CostedPath cp = searchGraphDepthFirstCheapestPath(getNode(start.getValue(),null,0, getNode(finish.getValue()).data));
+        CostedPath cp = searchGraphDepthFirstCheapestPath(getNode(start.getValue()), null, 0, getNode(finish.getValue()).data);
         pathList = cp.pathList;
         drawLine(pathList, color);
+        
     }
 
     //Retrieve cheapest path by expanding all paths recursively depth-first
