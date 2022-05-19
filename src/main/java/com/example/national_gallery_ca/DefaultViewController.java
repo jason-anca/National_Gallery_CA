@@ -222,13 +222,41 @@ public class DefaultViewController {
         if(currentNode.data.equals(lookingfor)) return nextPath; //If that's the goal, we've found our path (so return it)
         if(encountered==null) encountered=new ArrayList<>(); //First node considered in search so create new (empty) encountered list
         encountered.add(currentNode); //Record current node as encountered so it isn't revisited again
-        for(GraphNodeAL<?> adjNode : currentNode.adjList) //For each adjacent node
+        for(GraphLinkAL adjNode : currentNode.adjList) //For each adjacent node
             if(!encountered.contains(adjNode)) { //If it hasn't already been encountered
                 List<GraphNodeAL<?>> newPath=new ArrayList<>(nextPath); //Create a new path list as a copy of the current/next path
-                newPath.add(0,adjNode); //And add the adjacent node to the front of the new copy
+                newPath.add(0,adjNode.destNode); //And add the adjacent node to the front of the new copy
                 agenda.add(newPath); //Add the new path to the end of agenda (end->BFS!)
             }
         return findPathBreadthFirst(agenda,encountered,lookingfor); //Tail call
+    }
+
+    public void BFS(ActionEvent actionEvent){
+        List<GraphNodeAL<?>> pathList = new LinkedList<>();
+        CostedPath cp = findPathBreadthFirst(getNode(start.getValue(),));
+        System.out.println(cp.pathList.size());
+        pathList = cp.pathList;
+        drawLine(pathList, color);
+    }
+
+    public static <T> List<GraphNodeAL<?>> findPathDepthFirst(GraphNodeAL<?> from, List<GraphNodeAL<?>> encountered, T lookingfor){
+        List<GraphNodeAL<?>> result;
+        if(from.data.equals(lookingfor)) { //Found it
+            result=new ArrayList<>(); //Create new list to store the path info (any List implementation could be used)
+            result.add(from); //Add the current node as the only/last entry in the path list
+            return result; //Return the path list
+        }
+        if(encountered==null) encountered=new ArrayList<>(); //First node so create new (empty) encountered list
+        encountered.add(from);
+        for(GraphLinkAL adjNode : from.adjList)
+            if(!encountered.contains(adjNode)) {
+                result=findPathDepthFirst(adjNode.destNode,encountered,lookingfor);
+                if(result!=null) { //Result of the last recursive call contains a path to the solution node
+                    result.add(0,from); //Add the current node to the front of the path list
+                    return result; //Return the path list
+                }
+            }
+        return null;
     }
 
 
