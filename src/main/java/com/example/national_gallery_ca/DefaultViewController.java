@@ -256,7 +256,7 @@ public class DefaultViewController {
 
     @FXML
     //Allows the running of the algorithm using the rooms selected in the Comboboxes and the avoided rooms that is stored in an Arraylist.
-    //Very similar to Dijkstra's Actionevent, only change is that encountered param is null and cost is 0
+    //Very similar to Dijkstra's Action event, only change is that encountered param is null and cost is 0
     public void DFS(ActionEvent actionEvent) {
         List<GraphNodeAL<?>> pathList = new LinkedList<>();
         CostedPath cp = searchGraphDepthFirstCheapestPath(getNode(start.getValue()), null, 0, getNode(finish.getValue()).data, avoidRooms, roomMap);
