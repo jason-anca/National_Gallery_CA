@@ -29,15 +29,15 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <ComboBox layoutX="199.0" layoutY="624.0" prefWidth="150.0" promptText="Start" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" />
-      <ComboBox layoutX="199.0" layoutY="667.0" prefWidth="150.0" promptText="Destination" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" />
+      <ComboBox fx:id="start" layoutX="199.0" layoutY="624.0" prefWidth="150.0" promptText="Start" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" />
+      <ComboBox fx:id="finish" layoutX="199.0" layoutY="667.0" prefWidth="150.0" promptText="Destination" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="2.0" layoutX="19.0" layoutY="694.0" stroke="#575757" strokeType="INSIDE" width="427.0" AnchorPane.topAnchor="704.0" />
       <Label layoutX="634.0" layoutY="20.0" text="Algorithms" AnchorPane.leftAnchor="634.0">
          <font>
             <Font name="Calibri" size="25.0" />
          </font>
       </Label>
-      <ToggleButton layoutX="595.0" layoutY="545.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Dijkstra's" AnchorPane.topAnchor="545.0" />
+      <ToggleButton layoutX="595.0" layoutY="545.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Dijkstra's" AnchorPane.topAnchor="545.0" onAction="#dijkstras"/>
       <ToggleButton layoutX="594.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Depth-First" AnchorPane.topAnchor="60.0" />
       <ToggleButton layoutX="594.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Breadth-First" AnchorPane.leftAnchor="594.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="361.0" />
       <Label layoutX="20.0" layoutY="724.0" text="Avoid Rooms" AnchorPane.topAnchor="724.0">
@@ -45,7 +45,7 @@
             <Font name="Calibri" size="25.0" />
          </font>
       </Label>
-      <ComboBox layoutX="19.0" layoutY="754.0" prefWidth="150.0" promptText="Avoid" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" AnchorPane.topAnchor="764.0" />
+      <ComboBox fx:id="avoid" layoutX="19.0" layoutY="754.0" prefWidth="150.0" promptText="Avoid" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" AnchorPane.topAnchor="764.0" />
       <ListView layoutX="179.0" layoutY="754.0" prefHeight="213.0" prefWidth="270.0" style="-fx-border-color: #575757; -fx-border-width: 2;" AnchorPane.bottomAnchor="20.0" AnchorPane.topAnchor="724.0" />
       <Button layoutX="19.0" layoutY="807.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Add avoided room" AnchorPane.topAnchor="804.0" />
       <Button layoutX="19.0" layoutY="846.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Remove avoided room" AnchorPane.topAnchor="844.0" />
@@ -54,5 +54,6 @@
       <Button layoutX="594.0" layoutY="403.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Start" />
       <Button layoutX="698.0" layoutY="403.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Destination" />
       <Button layoutX="657.0" layoutY="442.0" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Calculate" />
+      <AnchorPane layoutX="21.0" layoutY="21.0" prefHeight="550.0" prefWidth="550.0" fx:id="aPane" disable="true"/>
    </children>
 </AnchorPane>
