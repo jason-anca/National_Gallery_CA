@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
@@ -37,8 +38,8 @@
             <Font name="Calibri" size="25.0" />
          </font>
       </Label>
-      <ToggleButton layoutX="595.0" layoutY="545.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Dijkstra's" AnchorPane.topAnchor="545.0" onAction="#dijkstras"/>
-      <ToggleButton layoutX="594.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Depth-First" AnchorPane.topAnchor="60.0" />
+      <ToggleButton layoutX="595.0" layoutY="545.0" mnemonicParsing="false" onAction="#dijkstras" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Dijkstra's" AnchorPane.topAnchor="545.0"/>
+      <ToggleButton layoutX="594.0" layoutY="60.0" mnemonicParsing="false" onAction="#DFS" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Depth-First" AnchorPane.topAnchor="60.0" />
       <ToggleButton layoutX="594.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Breadth-First" AnchorPane.leftAnchor="594.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="361.0" />
       <Label layoutX="20.0" layoutY="724.0" text="Avoid Rooms" AnchorPane.topAnchor="724.0">
          <font>
@@ -46,14 +47,20 @@
          </font>
       </Label>
       <ComboBox fx:id="avoid" layoutX="19.0" layoutY="754.0" prefWidth="150.0" promptText="Avoid" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" AnchorPane.topAnchor="764.0" />
-      <ListView layoutX="179.0" layoutY="754.0" prefHeight="213.0" prefWidth="270.0" style="-fx-border-color: #575757; -fx-border-width: 2;" AnchorPane.bottomAnchor="20.0" AnchorPane.topAnchor="724.0" />
-      <Button layoutX="19.0" layoutY="807.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Add avoided room" AnchorPane.topAnchor="804.0" />
-      <Button layoutX="19.0" layoutY="846.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Remove avoided room" AnchorPane.topAnchor="844.0" />
-      <Button layoutX="696.0" layoutY="921.0" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Clear mappings" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
-      <ListView layoutX="594.0" layoutY="95.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #575757; -fx-border-width: 2;" AnchorPane.topAnchor="95.0" />
+      <Button layoutX="19.0" layoutY="807.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Add avoided room" AnchorPane.topAnchor="804.0" onAction="#addAvoid" />
+      <Button layoutX="19.0" layoutY="846.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Remove avoided room" AnchorPane.topAnchor="844.0" onAction="#removeAvoid" />
+      <Button layoutX="696.0" layoutY="921.0" mnemonicParsing="false" onAction="#clearMappings" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Clear mappings" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
       <Button layoutX="594.0" layoutY="403.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Start" />
       <Button layoutX="698.0" layoutY="403.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Destination" />
       <Button layoutX="657.0" layoutY="442.0" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Calculate" />
-      <AnchorPane layoutX="21.0" layoutY="21.0" prefHeight="550.0" prefWidth="550.0" fx:id="aPane" disable="true"/>
+      <AnchorPane fx:id="aPane" disable="true" layoutX="21.0" layoutY="21.0" prefHeight="550.0" prefWidth="550.0" />
+      <ListView layoutX="534.0" layoutY="654.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #575757; -fx-border-width: 2;" />
+      <Label layoutX="606.0" layoutY="614.0" text="Paths">
+         <font>
+            <Font name="Calibri" size="25.0" />
+         </font>
+      </Label>
+      <Button layoutX="595.0" layoutY="304.0" mnemonicParsing="false" onAction="#DFSmulti" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #575757, #8d8f8e); -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0.5;" text="Depth-First Multi" />
+      <TreeView fx:id="treeView" layoutX="595.0" layoutY="95.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #575757; -fx-border-width: 2;" />
    </children>
 </AnchorPane>
